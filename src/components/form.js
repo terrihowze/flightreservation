@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import axios from "axios";
+import Axios from 'axios';
 
 
 class Post extends Component {
     state = {
-        name: "",
-        password:""
+        name: '',
+        password:''
     };
 
     // changes name state to new state input
@@ -27,11 +27,12 @@ class Post extends Component {
             name: this.state.name,
             password: this.state.password
         };
-        axios
-        .post("/user", data)
-        .then( res => console.log(res))
-        .catch(err => console.log(err));
-
+        
+        Axios
+            .post('http://localhost:8085/user', data)
+            .then( res => console.log(res.data))
+            .catch(err => console.log(err));
+            console.log(data);
     };
 
 render(){
@@ -41,15 +42,15 @@ render(){
             <label> Enter your username
                 <input
                 type= "text"
-                value = {this.state.name}
-                onChange = {this.onNewUser} required
+                //value = {this.state.name}
+                onChange = {this.onNewUser} 
                 />
             </label>
             <label>Enter you password
             <input
                 type = "password"
-                value = {this.state.password}
-                onChange = {this.onNewPassword} required
+                //value = {this.state.password}
+                onChange = {this.onNewPassword}
                 />
             </label>
             <button type="submit">Sign Up</button>

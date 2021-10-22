@@ -4,18 +4,20 @@ const user = require('../models/user-model');
 const flight = require('../models/flight-model');
 const reserve = require('../models/reserve-model');
 
-const createUser = async (req) => {
+const createUser = async ({name,password}) => {
     try{
-        await mongoose.connect(process.env.ATLAS_URI);
-        const salt = await bcrypt.genSalt();
-        const hashedPass = await bcrypt.hash(req.body.password, salt);
-        const name = req.body.name;
-        const User = new user({name,hashedPass});//might need to change hashedPass to pass
-        await User.save();
-        mongoose.connection.close();
-        res.status(201).send();
+        //await mongoose.connect(process.env.ATLAS_URI);
+        //const salt = await bcrypt.genSalt();
+        //const hashedPass = await bcrypt.hash(password, salt);
+        const username = name;
+        const PW = password;
+        //const User = new user({username,hashedPass});//might need to change hashedPass to pass
+        //await User.save();
+        //mongoose.connection.close();
+        //return {status: 201, message: `${username} has successfully been added!`};
+        console.log(username, PW);
     }catch{
-        res.status(500).send();
+        throw {status: 500, error: 'Could not add company'};
     }
 }
 
