@@ -28,9 +28,11 @@ class Post extends Component {
             password: this.state.password
         };
         axios
-        .post("/user")
+        .post("/user", data)
+        .then( res => console.log(res))
+        .catch(err => console.log(err));
 
-    }
+    };
 
 render(){
     return(
