@@ -11,13 +11,13 @@ class Post extends Component {
     // changes name state to new state input
     onNewUser = e =>{
         this.setState({
-            name = e.target.value
+            name: e.target.value
         });
     };
      // changes password state to new state input
     onNewPassword = e =>{
         this.setState({
-            password = e.target.value
+            password: e.target.value
         });
     };
 
@@ -52,6 +52,7 @@ render(){
                 onChange = {this.onNewPassword} required
                 />
             </label>
+            <button type="submit">Sign Up</button>
             </form>
 
         </div>
