@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+require('./reserve-model');
 
 const User = new Schema({
     username: {type:String, required:true, unique:true},
-    password: String,
-    reservation: [/**mongoID reference */],
+    password: {type: String, require: true},
+    reservation: [{type: Schema.Types.ObjectId, ref: 'reservation'}],
     payment: {
         ccNum: Number,
         ccExp: Date

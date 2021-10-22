@@ -15,7 +15,13 @@ const Flight = new Schema({
     maxCapacity: Number,
     seatsTaken: Number,
     airplaneType: String,
-    pricePerSeat: Number
+    pricePerSeat: Number,
+    layover: {
+        isTrue: Boolean,
+        time: Date,
+        count: Number,
+        stops: [String]
+    }
 });
 
 const flight = mongoose.model('flight', Flight);
