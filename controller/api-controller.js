@@ -3,23 +3,30 @@ const bcrypt = ('bcrypt');
 const user = require('../models/user-model');
 const flight = require('../models/flight-model');
 const reserve = require('../models/reserve-model');
+require('dotenv').config();
 
-const createUser = async (req) => {
-    try{
-        await mongoose.connect(process.env.ATLAS_URI);
-        const salt = await bcrypt.genSalt();
-        const hashedPass = await bcrypt.hash(req.body.password, salt);
-        const name = req.body.name;
-        const User = new user({name,hashedPass});//might need to change hashedPass to pass
-        await User.save();
+const createUser = async (req,res) => {
+        try{
+            await mongoose.connect(process.env.ATLAS_URI);
+        // const salt = await bcrypt.genSalt();
+        // const hashedPass = await bcrypt.hash(req.body.password, salt);
+         const name = req.body.name;
+        // const User = new user({name,hashedPass});//might need to change hashedPass to pass
+        // await User.save();
+
+        await bcrypt.genSalt(10, (err,salt) =>{
+            bcrypt.hash(req.body.password, salt, (err,hash)=>{
+                const User = new user({name,hash});
+                User.save();
+            });
+        });
         mongoose.connection.close();
-        res.status(201).send();
-    }catch{
-        res.status(500).send();
-    }
+        }catch(err){
+            console.log(err);
+        }
 }
 
-const login = async (req) => {
+const login = async (req,res) => {
     try{
         await mongoose.connect(process.env.ATLAS_URI);
         const user = users.find(user => user.name === req.body.name);
