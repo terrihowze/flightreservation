@@ -9,17 +9,17 @@ const createUser = async (req,res) => {
         try{
             await mongoose.connect(process.env.ATLAS_URI);
         // const salt = await bcrypt.genSalt();
-        // const hashedPass = await bcrypt.hash(req.body.password, salt);
-         const name = req.body.name;
-        // const User = new user({name,hashedPass});//might need to change hashedPass to pass
-        // await User.save();
+        const hashedPass = bcrypt.hashSync(req.body.password, 10);
+        const name = req.body.name;
+        const User = new user({name,hashedPass});//might need to change hashedPass to pass
+        await User.save();
 
-        await bcrypt.genSalt(10, (err,salt) =>{
-            bcrypt.hash(req.body.password, salt, (err,hash)=>{
-                const User = new user({name,hash});
-                User.save();
-            });
-        });
+        // await bcrypt.genSalt(10, (err,salt) =>{
+        //     bcrypt.hash(req.body.password, salt, (err,hash)=>{
+        //         const User = new user({name,hash});
+        //         User.save();
+        //     });
+        // });
         mongoose.connection.close();
         }catch(err){
             console.log(err);
