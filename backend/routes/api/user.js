@@ -2,7 +2,7 @@ const router = require('express').Router();
 const {resolve} = require('path');
 const {createUser, login} = require('../../api-controller');
 
-router.post('/', (req,res)=>{
+router.post('/', async (req,res)=>{
     console.log("1");
     await createUser(req.body);
     res.status(201);

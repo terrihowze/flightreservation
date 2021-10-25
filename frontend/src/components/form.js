@@ -4,35 +4,39 @@ import Axios from 'axios';
 
 class Post extends Component {
     state = {
-        name: '',
-        password:''
+        username: '',
+        userpass:''
     };
 
     // changes name state to new state input
     onNewUser = e =>{
         this.setState({
-            name: e.target.value
+            username: e.target.value
         });
     };
      // changes password state to new state input
     onNewPassword = e =>{
         this.setState({
-            password: e.target.value
+            userpass: e.target.value
         });
     };
 
     handleSubmit = e => {
         e.preventDefault();
-        const data = {
-            name: this.state.name,
-            password: this.state.password
-        };
-        
+        const data= {
+        username: this.state.username,
+        userpass: this.state.userpass
+        }
         Axios
-            .post('http://localhost:8085/user', data)
+            .post('http://localhost:8086/user', data)
             .then( res => console.log(res.data))
             .catch(err => console.log(err));
             console.log(data);
+        // const xhr = new XMLHttpRequest();
+        // xhr.open('POST','http://localhost:8085/user')
+        // xhr.setRequestHeader("Content-Type", "application/json");
+        // console.log(JSON.stringify({name: username, password: userpass}));
+        // xhr.send(JSON.stringify({name: username, password: userpass}));
     };
 
 render(){
